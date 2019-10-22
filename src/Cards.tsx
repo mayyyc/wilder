@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import drop from "lodash/drop";
 import isEmpty from "lodash/isEmpty";
 import { Card } from "./Card";
-export const Cards = ({ animals, onFinished }) => {
+export const Cards = ({ animals, onFinished, latLong }) => {
   const [cards, setCards] = useState(animals);
   useEffect(() => {
     setCards(animals);
@@ -18,7 +18,7 @@ export const Cards = ({ animals, onFinished }) => {
   }
   return (
     <div onClick={handleSwipeCard}>
-      <Card card={cards[0]} />
+      <Card card={cards[0]} latLong={latLong} />
     </div>
   );
 };
