@@ -16,9 +16,5 @@ export const Cards = ({ animals, onFinished, latLong }) => {
   if (isEmpty(cards)) {
     return <div></div>;
   }
-  return (
-    <div onClick={handleSwipeCard}>
-      <Card card={cards[0]} latLong={latLong} />
-    </div>
-  );
+  return <Card card={cards[0]} latLong={latLong} onSwipeCard={handleSwipeCard} />;
 };
