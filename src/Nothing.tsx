@@ -20,6 +20,6 @@ export const Nothing = ({ onClickRandomLocation }) => (
   <Container>
     <Kangaroo width="80" src="/standing_kangaroo.svg" alt="Kangaroo" />
     <div>Nothing is wilder than you are.</div>
-    <Button onClick={onClickRandomLocation}>Use a Random Location</Button>
+    <Button onClick={onClickRandomLocation}>Try a Random Location</Button>
   </Container>
 );

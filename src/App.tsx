@@ -15,10 +15,11 @@ const Container = styled.div`
   max-width: 450px;
   margin: auto;
   background-color: #f2f2f2;
+  position: relative;
 `;
 const Header = styled.div`
   background-color: white;
-  height: 64px;
+  height: 50px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -27,6 +28,7 @@ const Header = styled.div`
 const Content = styled.div`
   height: calc(100% - 50px);
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
 `;
@@ -69,18 +71,19 @@ const App: React.FC = () => {
     getAnimals(randomLat, randomLong, 0);
   };
   useEffect(() => {
-    navigator.geolocation.getCurrentPosition(position => {
-      setLatLong({
-        lat: position.coords.latitude,
-        long: position.coords.longitude
-      });
-      getAnimals(position.coords.latitude, position.coords.longitude, viewedAnimals);
-    });
+    // navigator.geolocation.getCurrentPosition(position => {
+    //   setLatLong({
+    //     lat: position.coords.latitude,
+    //     long: position.coords.longitude
+    //   });
+    //   getAnimals(position.coords.latitude, position.coords.longitude, viewedAnimals);
+    // });
+    handleRandomLocation();
   }, []);
   return (
     <Container>
       <Header>
-        <img width="100" src="/wilder_logo.png" alt="Wilder Logo" />
+        <img width="80" src="/wilder_logo.png" alt="Wilder Logo" />
       </Header>
       <Content>
         {!animals || isFetching ? (
@@ -90,7 +93,9 @@ const App: React.FC = () => {
         ) : (
           <Cards
             animals={animals}
-            onFinished={() => getAnimals(latLong.lat, latLong.long, viewedAnimals)}
+            onFinished={() =>
+              getAnimals(latLong.lat, latLong.long, viewedAnimals)
+            }
             latLong={latLong}
           />
         )}

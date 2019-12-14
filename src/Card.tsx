@@ -2,29 +2,21 @@ import React from "react";
 import { getDistance } from "./helper";
 import Chance from "chance";
 import styled from "styled-components";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faHeart, faTimes, faStar } from "@fortawesome/free-solid-svg-icons";
-const Container = styled.div`
-  width: 100%;
-  height: 100%;
-`;
+import { bio } from "./glossary";
+import { ImageGallery } from "./ImageGallery";
+import { Facts } from "./facts/Facts";
 const Profile = styled.div`
   margin: 0 8px;
+  width: calc(100% - 16px);
   display: flex;
   flex-direction: column;
   background-color: white;
   border-radius: 8px;
   overflow: hidden;
+  border: 1px solid #f2f2f2;
+  position: absolute;
 `;
-const Photo = styled.div`
-  display: inline-block;
-  width: 100%;
-  min-height: 280px;
-  max-height: 400px;
-  background-position: center center;
-  background-size: cover;
-`;
-const Info = styled.div`
+const Basic = styled.div`
   padding: 24px 8px;
   display: flex;
   justify-content: space-between;
@@ -38,33 +30,14 @@ const Dist = styled.div`
   color: #8c8181;
   font-size: 12px;
 `;
-const Actions = styled.div`
-  display: flex;
-  justify-content: space-evenly;
-  padding: 16px 8px;
+const Details = styled.div`
+  padding: 0 8px 24px;
 `;
-const Action = styled.div`
-  cursor: pointer;
-  height: 50px;
-  width: 50px;
-  border-radius: 50px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border: #ededed solid 5px;
-  background-color: white;
-`;
-const Like = styled(FontAwesomeIcon)`
-  color: #ef6d81;
-`;
-const Dismiss = styled(FontAwesomeIcon)`
-  color: #8c8181;
-`;
-const Super = styled(FontAwesomeIcon)`
-  color: #14cbcc;
+const Bio = styled.div`
+  margin-bottom: 24px;
 `;
 const chance = new Chance();
-export const Card = ({ card, latLong, onSwipeCard }) => {
+export const Card = ({ card, latLong, index }) => {
   const km = getDistance(
     card.decimalLatitude,
     card.decimalLongitude,
@@ -72,35 +45,21 @@ export const Card = ({ card, latLong, onSwipeCard }) => {
     latLong.long
   ).toFixed(1);
   return (
-    <Container onClick={onSwipeCard}>
-      <Profile>
-        <Photo
-          style={{ backgroundImage: `url(${card.largeImageUrl})`, height: window.innerWidth - 20 }}
-        />
-        <Info>
-          <Name>
-            {chance.first({ gender: "female" })}, {chance.age({ type: "adult" })}
-          </Name>
-          <Dist>{km}km away</Dist>
-        </Info>
-      </Profile>
-      <Actions>
-        <Action onClick={onSwipeCard}>
-          <Dismiss icon={faTimes} />
-        </Action>
-        <Action>
-          <a
-            href={`https://biocache.ala.org.au/occurrences/${card.uuid}`}
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-            <Super icon={faStar} />
-          </a>
-        </Action>
-        <Action onClick={onSwipeCard}>
-          <Like icon={faHeart} />
-        </Action>
-      </Actions>
-    </Container>
+    <Profile index={index}>
+      <ImageGallery imageUrls={card.imageUrls} />
+      <Basic>
+        <Name>
+          {chance.first({ gender: "female" })},{" "}
+          {Math.floor(Math.random() * 10 + 23)}
+        </Name>
+        <Dist>{km}km away</Dist>
+      </Basic>
+      <Details>
+        <Bio>
+          {Math.random() > 0.5 && bio[Math.floor(Math.random() * bio.length)]}
+        </Bio>
+        <Facts />
+      </Details>
+    </Profile>
   );
 };
