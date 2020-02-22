@@ -1,6 +1,5 @@
 import React from "react";
 import styled from "styled-components";
-import { starSign, frequency, lookingFor } from "./glossary";
 const Container = styled.div`
   border: 1px solid #8c8181;
   padding: 2px 8px;
