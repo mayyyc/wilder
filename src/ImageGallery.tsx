@@ -65,8 +65,7 @@ export const ImageGallery = ({ imageUrls }: IProps) => {
           (url, i) =>
             i === current && (
               <Image
-                key={i}
-                // src={url}
+                key={`${i}-${url}`}
                 style={{
                   backgroundImage: `url(${url})`,
                   height: window.innerWidth
@@ -76,9 +75,8 @@ export const ImageGallery = ({ imageUrls }: IProps) => {
         )}
       </ImageCrop>
       <Dots>
-        {imageUrls.map((url, i) => (
-          <Dot key={i} active={current === i} />
-        ))}
+        {imageUrls.length > 1 &&
+          imageUrls.map((url, i) => <Dot key={i} active={current === i} />)}
       </Dots>
     </Container>
   );

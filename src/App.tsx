@@ -26,7 +26,7 @@ const Header = styled.div`
   margin-bottom: 8px;
 `;
 const Content = styled.div`
-  height: calc(100% - 50px);
+  height: calc(100% - 58px);
   display: flex;
   flex-direction: column;
   align-items: center;

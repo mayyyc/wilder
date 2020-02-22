@@ -20,7 +20,11 @@ export const bio = [
   "I'm not good with bios",
   "No hookups only love",
   "I'm open and honest but little mystery keeps the spark alive",
-  "No lying, no cheating, no drama"
+  "No lying, no cheating, no drama",
+  "Don’t like me? Cool, I don’t wake up every day to impress you. Do whatever you want to do girls…",
+  "Beer pong expert, tinder scientist, booty wizard.",
+  "I hear you like bad girls, I'm bad at everything.",
+  "I’m not the type of girl you have to hold in farts for, but rather the type of girl you want to hold in farts for."
 ];
 
 export const starSign = [

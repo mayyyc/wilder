@@ -1,20 +1,20 @@
 import React from "react";
 import { getDistance } from "./helper";
-import Chance from "chance";
 import styled from "styled-components";
-import { bio } from "./glossary";
 import { ImageGallery } from "./ImageGallery";
-import { Facts } from "./facts/Facts";
+import { Fact } from "./Fact";
 const Profile = styled.div`
   margin: 0 8px;
   width: calc(100% - 16px);
+  height: calc(100% - 8px);
   display: flex;
   flex-direction: column;
   background-color: white;
   border-radius: 8px;
-  overflow: hidden;
+  overflow-y: scroll;
   border: 1px solid #f2f2f2;
   position: absolute;
+  z-index: ${props => 10 - props.index};
 `;
 const Basic = styled.div`
   padding: 24px 8px;
@@ -31,12 +31,12 @@ const Dist = styled.div`
   font-size: 12px;
 `;
 const Details = styled.div`
-  padding: 0 8px 24px;
+  padding: 0 8px 48px;
 `;
 const Bio = styled.div`
   margin-bottom: 24px;
+  white-space: pre-wrap;
 `;
-const chance = new Chance();
 export const Card = ({ card, latLong, index }) => {
   const km = getDistance(
     card.decimalLatitude,
@@ -48,17 +48,15 @@ export const Card = ({ card, latLong, index }) => {
     <Profile index={index}>
       <ImageGallery imageUrls={card.imageUrls} />
       <Basic>
-        <Name>
-          {chance.first({ gender: "female" })},{" "}
-          {Math.floor(Math.random() * 10 + 23)}
-        </Name>
+        <Name>{`${card.name}, ${card.age}`}</Name>
         <Dist>{km}km away</Dist>
       </Basic>
       <Details>
-        <Bio>
-          {Math.random() > 0.5 && bio[Math.floor(Math.random() * bio.length)]}
-        </Bio>
-        <Facts />
+        {card.bio && <Bio>{card.bio}</Bio>}
+        {card.facts &&
+          card.facts.map((fact, i) => (
+            <Fact key={i} type={fact.type} option={fact.option} />
+          ))}
       </Details>
     </Profile>
   );
